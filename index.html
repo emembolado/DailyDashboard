@@ -131,7 +131,7 @@
 <script>
 const SHOPS = [
   {id:'shopeemain', name:'Shopee Main', full:'Shopee Main (Easebrew Herbal Coffee)', hasLive:false,
-   dailyNote:'Sales, Voucher Cost &amp; Fees &amp; Charges are all actuals from your Shopee Main Income Report (Jul 1–17), matched by Payout Completed Date. Voucher Cost here is "Voucher Sponsored by Seller" per order — smaller than the ₱41,090 Voucher Center total above, because Voucher Center counts claims/usage over its own report window (Jul 1–18) using a different methodology than the settled Income Report.',
+   dailyNote:'Sales, Voucher Cost &amp; Fees &amp; Charges are all actuals from your Shopee Main Income Report (Jul 1–17), matched by Payout Completed Date. Voucher Cost here is "Voucher Sponsored by Seller" per order — smaller than the ₱41,090 Voucher Center total above, because Voucher Center counts claims/usage over its own report window (Jul 1–18) using a different methodology than the settled Income Report. See the "Voucher Center — Daily Breakdown" table below for the per-day claims/orders/sales driven by vouchers, from your Voucher Center per-day export.',
    summaryGroups:[
      {title:'Voucher Center (Jul 1–18)', stats:[['Sales','₱241,728'],['Claims','1,793'],['Orders','226'],['Usage Rate','12.60%'],['Buyers','213'],['Voucher Cost','₱41,090']]},
      {title:'Overall Sales (Jul 1–18)', stats:[['Sales','₱506,993'],['Sales (Shopee Rebate applied)','₱398,557'],['Orders','447'],['Cancelled Sales','₱47,877'],['Returned/Refunded Orders','2'],['Returned/Refunded Sales','₱2,007']]},
@@ -256,6 +256,59 @@ const SEED_MONTHLY_FEES = {
   tiktok: {amount:671444.77, note:'Finance Income Statement, Jul 2026 — COGS ₱436,025.00 + Sales Discount ₱151,445.15 + ADS ₱83,974.62. Fees & Charges (₱224,830.40) excluded here — already tracked daily in the "Fees" column above.'},
 };
 const COMPANY_OPEX = 60595.16; // Finance Income Statement, Jul 2026 — company-wide OPEX, not attributed to one platform
+
+// Per-day Voucher Center breakdown — from platform Voucher Center exports (per-day trend),
+// separate from the daily table's "Voucher Cost" (which comes from the Income Report).
+// Uses "Confirmed Order" figures (matches actual settled orders).
+const VOUCHER_DAILY = {
+  shopeemain: [
+    {date:'2026-07-01',sales:19371,claims:111,orders:15,usageRate:13.51,buyers:15,cost:3945},
+    {date:'2026-07-02',sales:18220,claims:104,orders:19,usageRate:18.27,buyers:19,cost:3638},
+    {date:'2026-07-03',sales:17920,claims:113,orders:19,usageRate:16.81,buyers:19,cost:3193},
+    {date:'2026-07-04',sales:16186,claims:132,orders:17,usageRate:12.88,buyers:17,cost:2773},
+    {date:'2026-07-05',sales:8713,claims:106,orders:12,usageRate:11.32,buyers:11,cost:1632},
+    {date:'2026-07-06',sales:13134,claims:120,orders:16,usageRate:13.33,buyers:16,cost:2830},
+    {date:'2026-07-07',sales:14456,claims:59,orders:15,usageRate:25.42,buyers:15,cost:2652},
+    {date:'2026-07-08',sales:10049,claims:114,orders:11,usageRate:9.65,buyers:10,cost:1910},
+    {date:'2026-07-09',sales:11592,claims:128,orders:7,usageRate:5.47,buyers:7,cost:2090},
+    {date:'2026-07-10',sales:13287,claims:129,orders:13,usageRate:10.08,buyers:13,cost:2476},
+    {date:'2026-07-11',sales:5895,claims:56,orders:5,usageRate:8.93,buyers:5,cost:1086},
+    {date:'2026-07-12',sales:13390,claims:107,orders:8,usageRate:7.48,buyers:8,cost:1819},
+    {date:'2026-07-13',sales:14907,claims:112,orders:13,usageRate:11.61,buyers:13,cost:1683},
+    {date:'2026-07-14',sales:21159,claims:118,orders:15,usageRate:12.71,buyers:15,cost:2187},
+    {date:'2026-07-15',sales:13229,claims:75,orders:11,usageRate:14.67,buyers:11,cost:1911},
+    {date:'2026-07-16',sales:8671,claims:110,orders:9,usageRate:8.18,buyers:9,cost:1738},
+    {date:'2026-07-17',sales:7972,claims:99,orders:8,usageRate:8.08,buyers:7,cost:955},
+  ],
+};
+
+function voucherDailyHTML(shop){
+  const rows = VOUCHER_DAILY[shop.id];
+  if(!rows || !rows.length) return '';
+  const totSales = rows.reduce((a,r)=>a+r.sales,0);
+  const totClaims = rows.reduce((a,r)=>a+r.claims,0);
+  const totOrders = rows.reduce((a,r)=>a+r.orders,0);
+  const totCost = rows.reduce((a,r)=>a+r.cost,0);
+  const body = rows.map(r=>`<tr>
+    <td>${r.date}</td>
+    <td>${peso(r.sales)}</td>
+    <td>${r.claims.toLocaleString('en-PH')}</td>
+    <td>${r.orders.toLocaleString('en-PH')}</td>
+    <td>${r.usageRate.toFixed(2)}%</td>
+    <td>${r.buyers.toLocaleString('en-PH')}</td>
+    <td>${peso(r.cost)}</td>
+  </tr>`).join('');
+  return `<div class="section">
+    <h2>Voucher Center — Daily Breakdown, ${shop.name}</h2>
+    <div class="desc">Per-day voucher usage (Confirmed Order figures): how many claimed/ordered using a voucher that day, and how much sales it drove. This is separate from "Voucher Cost" in the Daily data table above, which comes from the Income Report (different methodology — see note above).</div>
+    <table>
+      <thead><tr><th>Date</th><th>Sales</th><th>Claims</th><th>Orders (Used)</th><th>Usage Rate</th><th>Buyers</th><th>Voucher Cost</th></tr></thead>
+      <tbody>${body}
+        <tr class="totals-row"><td>Total</td><td>${peso(totSales)}</td><td>${totClaims.toLocaleString('en-PH')}</td><td>${totOrders.toLocaleString('en-PH')}</td><td></td><td></td><td>${peso(totCost)}</td></tr>
+      </tbody>
+    </table>
+  </div>`;
+}
 
 let state = {}; // shopId -> {rows:[], monthlyFees:{...}}
 
@@ -392,10 +445,10 @@ function dailyTableHTML(shop){
     rows.forEach((r,i)=>{
       body += `<tr data-i="${i}">
         <td><input type="date" value="${r.date||''}" onchange="updateCell('${shop.id}',${i},'date',this.value)"></td>
-        <td><input type="number" step="1" value="${r.sales||0}" onchange="updateCell('${shop.id}',${i},'sales',this.value)"></td>
-        <td><input type="number" step="1" value="${r.voucherCost||0}" onchange="updateCell('${shop.id}',${i},'voucherCost',this.value)"></td>
-        <td><input type="number" step="1" value="${r.fees||0}" onchange="updateCell('${shop.id}',${i},'fees',this.value)"></td>
-        ${shop.hasLive?`<td><input type="number" step="1" value="${r.liveSales||0}" onchange="updateCell('${shop.id}',${i},'liveSales',this.value)"></td>`:''}
+        <td><input type="text" inputmode="decimal" value="${peso(r.sales||0)}" onfocus="this.value=(${Number(r.sales)||0})" onblur="this.value=peso(this.value)" onchange="updateCell('${shop.id}',${i},'sales',this.value)"></td>
+        <td><input type="text" inputmode="decimal" value="${peso(r.voucherCost||0)}" onfocus="this.value=(${Number(r.voucherCost)||0})" onblur="this.value=peso(this.value)" onchange="updateCell('${shop.id}',${i},'voucherCost',this.value)"></td>
+        <td><input type="text" inputmode="decimal" value="${peso(r.fees||0)}" onfocus="this.value=(${Number(r.fees)||0})" onblur="this.value=peso(this.value)" onchange="updateCell('${shop.id}',${i},'fees',this.value)"></td>
+        ${shop.hasLive?`<td><input type="text" inputmode="decimal" value="${peso(r.liveSales||0)}" onfocus="this.value=(${Number(r.liveSales)||0})" onblur="this.value=peso(this.value)" onchange="updateCell('${shop.id}',${i},'liveSales',this.value)"></td>`:''}
         <td class="row-actions"><button onclick="deleteRow('${shop.id}',${i})" title="Delete row">✕</button></td>
       </tr>`;
     });
@@ -441,7 +494,7 @@ function monthlyFeesHTML(shop){
 }
 
 function renderShopView(shop){
-  return `${shopSummaryHTML(shop)}${dailyTableHTML(shop)}${monthlyFeesHTML(shop)}`;
+  return `${shopSummaryHTML(shop)}${voucherDailyHTML(shop)}${dailyTableHTML(shop)}${monthlyFeesHTML(shop)}`;
 }
 
 function renderOverview(){
@@ -514,7 +567,7 @@ function drawCharts(){
 
 /* ---------- interactions ---------- */
 window.updateCell = function(shopId, i, field, val){
-  state[shopId].rows[i][field] = (field==='date') ? val : Number(val);
+  state[shopId].rows[i][field] = (field==='date') ? val : Number(String(val).replace(/[₱,\s]/g,'')) || 0;
   saveRows(shopId).then(()=>{ renderGauges(); renderView(currentView); });
 };
 window.deleteRow = function(shopId, i){
