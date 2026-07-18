@@ -131,26 +131,26 @@
 <script>
 const SHOPS = [
   {id:'shopeemain', name:'Shopee Main', full:'Shopee Main (Easebrew Herbal Coffee)', hasLive:false,
-   dailyNote:'Sales &amp; Fees &amp; Charges are actuals from your Shop Stats + Income Report exports. Voucher Cost per day is not available — Shopee\'s Voucher Center only exports a period total (₱41,090 above), not a daily split.',
+   dailyNote:'Sales, Voucher Cost &amp; Fees &amp; Charges are all actuals from your Shopee Main Income Report (Jul 1–17), matched by Payout Completed Date. Voucher Cost here is "Voucher Sponsored by Seller" per order — smaller than the ₱41,090 Voucher Center total above, because Voucher Center counts claims/usage over its own report window (Jul 1–18) using a different methodology than the settled Income Report.',
    summaryGroups:[
      {title:'Voucher Center (Jul 1–18)', stats:[['Sales','₱241,728'],['Claims','1,793'],['Orders','226'],['Usage Rate','12.60%'],['Buyers','213'],['Voucher Cost','₱41,090']]},
      {title:'Overall Sales (Jul 1–18)', stats:[['Sales','₱506,993'],['Sales (Shopee Rebate applied)','₱398,557'],['Orders','447'],['Cancelled Sales','₱47,877'],['Returned/Refunded Orders','2'],['Returned/Refunded Sales','₱2,007']]},
      {title:'Income Report — Official Totals (Jul 1–17)', stats:[['Total Revenue','₱514,483'],['Fees & Charges','₱136,105.81'],['Total Released Amount','₱377,908.19']]},
    ]},
   {id:'herbalph', name:'Herbal PH', full:'Herbal PH (Shopee)', hasLive:false,
-   dailyNote:'Sales are actuals from your Shop Stats export. Voucher Cost per day and Fees &amp; Charges are not available yet — send Herbal PH\'s Income Report (like Shopee Main\'s) so I can fill these in.',
+   dailyNote:'Sales are actuals from your Shop Stats export (Confirmed Order, matches exactly). Voucher Cost and Fees & Charges per day are still 0 — you sent Herbal PH\'s Shop Stats but not its Income Report. Send Herbal PH\'s Income Report export (same file type as Shopee Main\'s) and I\'ll fill these in the same way.',
    summaryGroups:[
      {title:'Voucher Center (Jul 1–17)', stats:[['Sales','₱116,307'],['Claims','1,088'],['Orders','116'],['Usage Rate','10.66%'],['Buyers','111'],['Voucher Cost','₱20,019']]},
      {title:'Overall Sales (Jul 1–17)', stats:[['Sales','₱213,490'],['Orders','238'],['Cancelled Orders','8'],['Cancelled Sales','₱5,277']]},
    ]},
   {id:'lazada', name:'Lazada', full:'Lazada (LazMall) (Easebrew Herbal Coffee)', hasLive:false,
-   dailyNote:'Sales are from Business Advisor. Voucher Cost &amp; Fees &amp; Charges are from your Income Statement (no entries posted for Jul 1). The voucher list export only shows lifetime totals per voucher, not a clean daily split, so treat these two columns as a close approximation.',
+   dailyNote:'Sales are from Business Advisor (Key Metrics export, matches exactly). Voucher Cost &amp; Fees &amp; Charges are from your detailed Income Statement export, matched by Transaction Date — verified line-by-line against the ₱7,709.17 / ₱38,911.89 period totals reported earlier, and they match exactly. No entries posted for Jul 1.',
    summaryGroups:[
      {title:'Business Advisor — Overall (Jul 1–17)', stats:[['Revenue','₱398,733.05'],['Orders','402'],['Visitors','12,832'],['Buyers','381'],['Cancelled Amount','₱172,321.63'],['Return/Refund Amount','₱391.08']]},
      {title:'Income Statement — Fees & Voucher (Jul 2–17)', stats:[['Total Voucher Cost','₱7,709.17'],['Total Fees & Charges','₱38,911.89'],['Note','No transactions recorded on Jul 1']]},
    ]},
   {id:'tiktok', name:'TikTok', full:'TikTok (Easebrew Herbal Coffee)', hasLive:true,
-   dailyNote:'Sales, Live Sales &amp; Fees &amp; Charges are actuals from your TikTok exports. Voucher Cost per day is not available — TikTok\'s promotion list only exports lifetime totals per voucher, not a daily split.',
+   dailyNote:'Sales, Live Sales, Voucher Cost &amp; Fees &amp; Charges are all actuals from your TikTok exports, matched by Order settled time. Voucher Cost is "Seller discounts" from the Income Statement\'s Order details sheet — the Shop Promotion List you sent only has lifetime totals per voucher, not a daily split, so that file wasn\'t used here.',
    summaryGroups:[
      {title:'Shop Analytics — Overall (Jul 1–17)', stats:[['GMV','₱837,595.38'],['Orders','1,050'],['Gross Revenue','₱959,166.98'],['Customers','1,009']]},
      {title:'LIVE Performance (Jul 1–17)', stats:[['LIVE-attributed GMV','₱269,975.76'],['LIVE GMV','₱249,274.45']]},
@@ -165,21 +165,21 @@ const SHOPS = [
 
 const SEED_ROWS = {
   shopeemain: [
-    {date:'2026-07-01',sales:50636,voucherCost:0,fees:11408.17},
-    {date:'2026-07-02',sales:42532,voucherCost:0,fees:7915.51},
-    {date:'2026-07-03',sales:37427,voucherCost:0,fees:11708.44},
-    {date:'2026-07-04',sales:26019,voucherCost:0,fees:8649.18},
-    {date:'2026-07-05',sales:18754,voucherCost:0,fees:10916.35},
-    {date:'2026-07-06',sales:20126,voucherCost:0,fees:12489.23},
-    {date:'2026-07-07',sales:39823,voucherCost:0,fees:8407.46},
-    {date:'2026-07-08',sales:30614,voucherCost:0,fees:8183.62},
-    {date:'2026-07-09',sales:35375,voucherCost:0,fees:5391.80},
-    {date:'2026-07-10',sales:22879,voucherCost:0,fees:5975.19},
-    {date:'2026-07-11',sales:14090,voucherCost:0,fees:7217.66},
-    {date:'2026-07-12',sales:27476,voucherCost:0,fees:6170.50},
-    {date:'2026-07-13',sales:20103,voucherCost:0,fees:5603.12},
+    {date:'2026-07-01',sales:50636,voucherCost:491,fees:11408.17},
+    {date:'2026-07-02',sales:42532,voucherCost:263,fees:7915.51},
+    {date:'2026-07-03',sales:37427,voucherCost:281,fees:11708.44},
+    {date:'2026-07-04',sales:26019,voucherCost:496,fees:8649.18},
+    {date:'2026-07-05',sales:18754,voucherCost:220,fees:10916.35},
+    {date:'2026-07-06',sales:20126,voucherCost:70,fees:12489.23},
+    {date:'2026-07-07',sales:39823,voucherCost:60,fees:8407.46},
+    {date:'2026-07-08',sales:30614,voucherCost:40,fees:8183.62},
+    {date:'2026-07-09',sales:35375,voucherCost:40,fees:5391.80},
+    {date:'2026-07-10',sales:22879,voucherCost:20,fees:5975.19},
+    {date:'2026-07-11',sales:14090,voucherCost:20,fees:7217.66},
+    {date:'2026-07-12',sales:27476,voucherCost:20,fees:6170.50},
+    {date:'2026-07-13',sales:20103,voucherCost:20,fees:5603.12},
     {date:'2026-07-14',sales:33149,voucherCost:0,fees:5229.23},
-    {date:'2026-07-15',sales:19023,voucherCost:0,fees:5327.01},
+    {date:'2026-07-15',sales:19023,voucherCost:20,fees:5327.01},
     {date:'2026-07-16',sales:20163,voucherCost:0,fees:10854.96},
     {date:'2026-07-17',sales:11370,voucherCost:0,fees:4658.38},
   ],
@@ -222,35 +222,38 @@ const SEED_ROWS = {
     {date:'2026-07-17',sales:5701.00,voucherCost:553.61,fees:2226.37},
   ],
   tiktok: [
-    {date:'2026-07-01',sales:55474.55,voucherCost:0,fees:12198.13,liveSales:14026.25},
-    {date:'2026-07-02',sales:56327.37,voucherCost:0,fees:16749.01,liveSales:16723.31},
-    {date:'2026-07-03',sales:65257.86,voucherCost:0,fees:12924.57,liveSales:24091.33},
-    {date:'2026-07-04',sales:48482.85,voucherCost:0,fees:13102.96,liveSales:16695.15},
-    {date:'2026-07-05',sales:44309.24,voucherCost:0,fees:12625.12,liveSales:11677.07},
-    {date:'2026-07-06',sales:62145.86,voucherCost:0,fees:14874.45,liveSales:14628.27},
-    {date:'2026-07-07',sales:56678.99,voucherCost:0,fees:15890.36,liveSales:23612.83},
-    {date:'2026-07-08',sales:48963.40,voucherCost:0,fees:15028.09,liveSales:13140.99},
-    {date:'2026-07-09',sales:49963.50,voucherCost:0,fees:12117.05,liveSales:5993.70},
-    {date:'2026-07-10',sales:45936.56,voucherCost:0,fees:13755.09,liveSales:12155.12},
-    {date:'2026-07-11',sales:41331.97,voucherCost:0,fees:16480.09,liveSales:9227.88},
-    {date:'2026-07-12',sales:49191.92,voucherCost:0,fees:17740.69,liveSales:14650.12},
-    {date:'2026-07-13',sales:41585.22,voucherCost:0,fees:11559.98,liveSales:14099.03},
-    {date:'2026-07-14',sales:45478.52,voucherCost:0,fees:8432.46,liveSales:16807.50},
-    {date:'2026-07-15',sales:49518.57,voucherCost:0,fees:9947.00,liveSales:16842.29},
-    {date:'2026-07-16',sales:38114.75,voucherCost:0,fees:11266.01,liveSales:12893.47},
-    {date:'2026-07-17',sales:38834.25,voucherCost:0,fees:13693.79,liveSales:12010.14},
+    {date:'2026-07-01',sales:55474.55,voucherCost:3803.52,fees:12198.13,liveSales:14026.25},
+    {date:'2026-07-02',sales:56327.37,voucherCost:3973.43,fees:16749.01,liveSales:16723.31},
+    {date:'2026-07-03',sales:65257.86,voucherCost:3294.96,fees:12924.57,liveSales:24091.33},
+    {date:'2026-07-04',sales:48482.85,voucherCost:3650.81,fees:13102.96,liveSales:16695.15},
+    {date:'2026-07-05',sales:44309.24,voucherCost:3417.60,fees:12625.12,liveSales:11677.07},
+    {date:'2026-07-06',sales:62145.86,voucherCost:3835.70,fees:14874.45,liveSales:14628.27},
+    {date:'2026-07-07',sales:56678.99,voucherCost:4092.31,fees:15890.36,liveSales:23612.83},
+    {date:'2026-07-08',sales:48963.40,voucherCost:4475.72,fees:15028.09,liveSales:13140.99},
+    {date:'2026-07-09',sales:49963.50,voucherCost:3357.77,fees:12117.05,liveSales:5993.70},
+    {date:'2026-07-10',sales:45936.56,voucherCost:3161.25,fees:13755.09,liveSales:12155.12},
+    {date:'2026-07-11',sales:41331.97,voucherCost:4277.48,fees:16480.09,liveSales:9227.88},
+    {date:'2026-07-12',sales:49191.92,voucherCost:4005.40,fees:17740.69,liveSales:14650.12},
+    {date:'2026-07-13',sales:41585.22,voucherCost:3043.61,fees:11559.98,liveSales:14099.03},
+    {date:'2026-07-14',sales:45478.52,voucherCost:2433.56,fees:8432.46,liveSales:16807.50},
+    {date:'2026-07-15',sales:49518.57,voucherCost:2320.36,fees:9947.00,liveSales:16842.29},
+    {date:'2026-07-16',sales:38114.75,voucherCost:3468.85,fees:11266.01,liveSales:12893.47},
+    {date:'2026-07-17',sales:38834.25,voucherCost:2642.15,fees:13693.79,liveSales:12010.14},
   ],
   shopeecombined: [],
 };
 
 // Monthly-total deductions from Finance's July 2026 Income Statement (Marketplace P&L),
 // used as defaults for shops whose monthly fees & charges box is still empty.
-// These are Total Deduction figures (COGS + Sales Discount + Fees & Charges + ADS) per platform;
-// company-wide OPEX (₱60,595.16) is not attributed to a single platform and is added separately below.
+// NOTE: "Fees & Charges" from Finance is deliberately EXCLUDED here — that line is already
+// tracked per day in each shop's own daily table (the "Fees" column), so adding Finance's
+// Fees & Charges figure on top would double-count it. This bucket only adds the parts that
+// have no daily equivalent: COGS + Sales Discount + ADS.
+// Company-wide OPEX (₱60,595.16) is not attributed to a single platform and is added separately below.
 const SEED_MONTHLY_FEES = {
-  shopeecombined: {amount:769978.71, note:'Finance Income Statement, Jul 2026 (Shopee Main + Herbal PH combined) — COGS ₱385,842.00 + Sales Discount ₱105,417.00 + Fees & Charges ₱178,719.71 + ADS ₱100,000.00'},
-  lazada: {amount:349371.15, note:'Finance Income Statement, Jul 2026 — COGS ₱172,999.00 + Sales Discount ₱20,921.70 + Fees & Charges ₱86,368.85 + ADS ₱69,081.60'},
-  tiktok: {amount:896275.17, note:'Finance Income Statement, Jul 2026 — COGS ₱436,025.00 + Sales Discount ₱151,445.15 + Fees & Charges ₱224,830.40 + ADS ₱83,974.62'},
+  shopeecombined: {amount:591259.00, note:'Finance Income Statement, Jul 2026 (Shopee Main + Herbal PH combined) — COGS ₱385,842.00 + Sales Discount ₱105,417.00 + ADS ₱100,000.00. Fees & Charges (₱178,719.71) excluded here — already tracked daily in the Shopee Main / Herbal PH "Fees" column.'},
+  lazada: {amount:263002.30, note:'Finance Income Statement, Jul 2026 — COGS ₱172,999.00 + Sales Discount ₱20,921.70 + ADS ₱69,081.60. Fees & Charges (₱86,368.85) excluded here — already tracked daily in the "Fees" column above.'},
+  tiktok: {amount:671444.77, note:'Finance Income Statement, Jul 2026 — COGS ₱436,025.00 + Sales Discount ₱151,445.15 + ADS ₱83,974.62. Fees & Charges (₱224,830.40) excluded here — already tracked daily in the "Fees" column above.'},
 };
 const COMPANY_OPEX = 60595.16; // Finance Income Statement, Jul 2026 — company-wide OPEX, not attributed to one platform
 
@@ -264,6 +267,26 @@ function setSaveNote(txt, ok=true){
   el.style.color = ok ? '#556B45' : '#A24B36';
 }
 
+// One-time patch: voucher cost per day, now available from Income Report / Income Statement
+// exports. Applied only to rows that still have voucherCost 0/blank for a matching date —
+// never overwrites sales, fees, or any row you've already edited or added yourself.
+const PATCH_VOUCHER_COST = {
+  shopeemain: {'2026-07-01':491,'2026-07-02':263,'2026-07-03':281,'2026-07-04':496,'2026-07-05':220,'2026-07-06':70,'2026-07-07':60,'2026-07-08':40,'2026-07-09':40,'2026-07-10':20,'2026-07-11':20,'2026-07-12':20,'2026-07-13':20,'2026-07-14':0,'2026-07-15':20,'2026-07-16':0,'2026-07-17':0},
+  tiktok: {'2026-07-01':3803.52,'2026-07-02':3973.43,'2026-07-03':3294.96,'2026-07-04':3650.81,'2026-07-05':3417.60,'2026-07-06':3835.70,'2026-07-07':4092.31,'2026-07-08':4475.72,'2026-07-09':3357.77,'2026-07-10':3161.25,'2026-07-11':4277.48,'2026-07-12':4005.40,'2026-07-13':3043.61,'2026-07-14':2433.56,'2026-07-15':2320.36,'2026-07-16':3468.85,'2026-07-17':2642.15},
+};
+function applyVoucherPatch(id){
+  const patch = PATCH_VOUCHER_COST[id];
+  if(!patch || !state[id]?.rows) return;
+  let changed = false;
+  state[id].rows.forEach(r=>{
+    if(patch[r.date]!==undefined && !Number(r.voucherCost)){
+      r.voucherCost = patch[r.date];
+      changed = true;
+    }
+  });
+  return changed;
+}
+
 async function loadShop(id){
   try{
     const r = await window.storage.get('rows:'+id);
@@ -274,13 +297,16 @@ async function loadShop(id){
     state[id].rows = SEED_ROWS[id].map(r=>({...r}));
     try{ await window.storage.set('rows:'+id, JSON.stringify(state[id].rows), false); }catch(e){}
   }
+  if(applyVoucherPatch(id)){
+    try{ await window.storage.set('rows:'+id, JSON.stringify(state[id].rows), false); }catch(e){}
+  }
   try{
-    const f = await window.storage.get('monthlyfees:'+id);
+    const f = await window.storage.get('monthlyfees2:'+id);
     if(f){
       state[id].monthlyFees = JSON.parse(f.value);
     } else {
       state[id].monthlyFees = SEED_MONTHLY_FEES[id] ? {...SEED_MONTHLY_FEES[id]} : {amount:0, note:''};
-      try{ await window.storage.set('monthlyfees:'+id, JSON.stringify(state[id].monthlyFees), false); }catch(e){}
+      try{ await window.storage.set('monthlyfees2:'+id, JSON.stringify(state[id].monthlyFees), false); }catch(e){}
     }
   }catch(e){ state[id].monthlyFees = SEED_MONTHLY_FEES[id] ? {...SEED_MONTHLY_FEES[id]} : {amount:0, note:''}; }
 }
@@ -295,7 +321,7 @@ async function saveRows(id){
 async function saveMonthlyFees(id){
   setSaveNote('saving…');
   try{
-    await window.storage.set('monthlyfees:'+id, JSON.stringify(state[id].monthlyFees), false);
+    await window.storage.set('monthlyfees2:'+id, JSON.stringify(state[id].monthlyFees), false);
     setSaveNote('saved');
   }catch(e){ setSaveNote('save failed', false); }
 }
@@ -441,7 +467,7 @@ function renderOverview(){
       <div class="stat"><div class="k">— incl. Company OPEX (unallocated)</div><div class="v">${peso(COMPANY_OPEX)}</div></div>
       <div class="stat"><div class="k">Operating Margin</div><div class="v">${pct(t.margin)}</div></div>
     </div>
-    <div class="source-note">Margin here = (Sales − Voucher Cost − Fees) ÷ Sales. "Total Fees & Charges" now includes the July 2026 Finance Income Statement deductions (COGS + Sales Discount + Fees & Charges + ADS) entered as each shop's Monthly fees & charges — see the Shopee (Combined), Lazada, and TikTok tabs — plus company-wide OPEX of ${peso(COMPANY_OPEX)}, which Finance did not attribute to a specific platform.</div>
+    <div class="source-note">Margin here = (Sales − Voucher Cost − Fees) ÷ Sales. "Total Fees & Charges" combines: (1) each shop's own daily "Fees" column, (2) the July 2026 Finance Income Statement's COGS + Sales Discount + ADS entered as each shop's Monthly fees & charges — see the Shopee (Combined), Lazada, and TikTok tabs — and (3) company-wide OPEX of ${peso(COMPANY_OPEX)}. Finance's own "Fees & Charges" line is intentionally left out of the monthly bucket since it's already covered by (1), to avoid double-counting.</div>
   </div>
   <div class="section">
     <h2>What's still needed</h2>
